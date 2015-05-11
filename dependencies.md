@@ -1,5 +1,5 @@
 # VBA Project: emptycDataSet
-This repo (emptycDataSet) was automatically created on 5/11/2015 12:42:11 PM by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation") or [contact me on G+](https://plus.google.com/+BruceMcpherson "Bruce McPherson - GDE")  
+This repo (emptycDataSet) was automatically created on 5/11/2015 12:43:48 PM by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation") or [contact me on G+](https://plus.google.com/+BruceMcpherson "Bruce McPherson - GDE")  
 ## Details for VBA project emptycDataSet
 Where possibile directly referenced or sub referenced library sources have been copied to this repository  
 ### Modules of emptycDataSet included in this repo
