@@ -1,5 +1,5 @@
 # VBA Project: emptycDataSet
-This cross reference list for repo (emptycDataSet) was automatically created on 5/11/2015 12:43:48 PM by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
+This cross reference list for repo (emptycDataSet) was automatically created on 5/11/2015 1:03:16 PM by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 You can see [library and dependency information here](dependencies.md)
 
 ###Below is a cross reference showing which modules and procedures reference which others
@@ -24,6 +24,8 @@ cStringChunker||cJobject|unSplitToString
 cStringChunker||cJobject|serialize
 cUAMeasure||UAMeasure|registerUA
 regXLib|rxReplace|usefulcJobject|cleanGoogleWire
+regXLib|rxReplace|usefulcJobject|hackJSObjectToJSON
+regXLib|rxReplace|usefulcJobject|hackJSONPObjectToJSON
 UAMeasure|registerUA|restLibrary|restQuery
 usefulcJobject|cleanGoogleWire|googleSheets|getJobjectFromWire
 usefulcJobject|JSONParse|googleSheets|getSchemaNewSheets
