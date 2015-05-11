@@ -2,7 +2,7 @@
 ## VBA Module: **[googleWireExample](/scripts/googleWireExample.vba "source is here")**
 ### Type: StdModule  
 
-This procedure list for repo (emptycDataSet) was automatically created on 5/11/2015 12:42:11 PM by VBAGit.
+This procedure list for repo (emptycDataSet) was automatically created on 5/11/2015 12:43:47 PM by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in googleWireExample
