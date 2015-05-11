@@ -275,6 +275,8 @@ Private Function executeSingle(Optional rurl As String = vbNullString, _
     End If
     
     ' deserialize the result
+    pResponse = hackJSONPObjectToJSON(pResponse)
+    
     Set job = jObject(complain)
     If (job Is Nothing) Then Exit Function
         
