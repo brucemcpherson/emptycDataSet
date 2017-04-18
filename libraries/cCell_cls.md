@@ -2,7 +2,7 @@
 ## VBA Module: **[cCell](/libraries/cCell.cls "source is here")**
 ### Type: ClassModule  
 
-This procedure list for repo (emptycDataSet) was automatically created on 5/11/2015 1:03:16 PM by VBAGit.
+This procedure list for repo (emptycDataSet) was automatically created on 4/18/2017 10:33:03 AM by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in cCell
@@ -138,11 +138,11 @@ Return description: ****
 Scope: **Public**  
 Description: ****  
 
-*Public Function needSwap(cc As cCell, e As eSort) As Boolean*  
+*Public Function needSwap(cc As ccell, e As eSort) As Boolean*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---
-cc|[cCell](/libraries/cCell_cls.md "cCell")|False||
+cc|ccell|False||
 e|eSort|False||
 
 
@@ -164,12 +164,12 @@ p|Variant|True||
 ---
 VBA Procedure: **create**  
 Type: **Function**  
-Returns: **[cCell](/libraries/cCell_cls.md "cCell")**  
+Returns: **ccell**  
 Return description: ****  
 Scope: **Public**  
 Description: ****  
 
-*Public Function create(par As cDataRow, colNum As Long, rCell As Range, Optional v As Variant) As cCell*  
+*Public Function create(par As cDataRow, colNum As Long, rCell As Range, Optional v As Variant) As ccell*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---
