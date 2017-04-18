@@ -27,8 +27,8 @@ Public Sub testWorkBookImportNewSheets()
     ' this example imports all the worksheets in a workbook with this Key from a  private sheet
     ' you need to have enabled oauth2
     key = "12pTwh5Wzg0W4ZnGBiUI3yZY8QFoNI8NNx_oCPynjGYY"
-    
-    If Not importGoogleWorkbookNewSheets(key, , , True) Then
+    key = "1najG4ARQ2JsqEGxT8kKz_IeYWCuBzzpmyU0R9oq3I58"
+    If Not importGoogleWorkbookNewSheets(key, , , True, True) Then
         MsgBox ("failed to import workbook at " & key)
     
     End If
@@ -41,7 +41,7 @@ Public Sub testSelectedImportNewSheets()
     listOfSheets = "carriers,exceldemo"
     key = "12pTwh5Wzg0W4ZnGBiUI3yZY8QFoNI8NNx_oCPynjGYY"
     
-    If Not importGoogleWorkbookNewSheets(key, , , True, , listOfSheets) Then
+    If Not importGoogleWorkbookNewSheets(key, , , True, True, listOfSheets) Then
         MsgBox ("failed to import workbook at " & key)
     
     End If
