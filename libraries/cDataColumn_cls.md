@@ -2,7 +2,7 @@
 ## VBA Module: **[cDataColumn](/libraries/cDataColumn.cls "source is here")**
 ### Type: ClassModule  
 
-This procedure list for repo (emptycDataSet) was automatically created on 5/11/2015 1:03:15 PM by VBAGit.
+This procedure list for repo (emptycDataSet) was automatically created on 4/18/2017 10:33:03 AM by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in cDataColumn
@@ -131,12 +131,12 @@ Description: ****
 ---
 VBA Procedure: **cell**  
 Type: **Get**  
-Returns: **[cCell](/libraries/cCell_cls.md "cCell")**  
+Returns: **ccell**  
 Return description: ****  
 Scope: **Public**  
 Description: ****  
 
-*Public Property Get cell(rowID As Variant) As cCell*  
+*Public Property Get cell(rowID As Variant) As ccell*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---
@@ -235,12 +235,12 @@ Description: ****
 ---
 VBA Procedure: **find**  
 Type: **Function**  
-Returns: **[cCell](/libraries/cCell_cls.md "cCell")**  
+Returns: **ccell**  
 Return description: ****  
 Scope: **Public**  
 Description: ****  
 
-*Public Function find(v As Variant) As cCell*  
+*Public Function find(v As Variant) As ccell*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---
@@ -297,24 +297,24 @@ Return description: ****
 Scope: **Public**  
 Description: ****  
 
-*Public Function create(dset As cDataSet, hcell As cCell, ncol As Long) As cDataColumn*  
+*Public Function create(dset As cDataSet, hcell As ccell, ncol As Long) As cDataColumn*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---
 dset|[cDataSet](/libraries/cDataSet_cls.md "cDataSet")|False||
-hcell|[cCell](/libraries/cCell_cls.md "cCell")|False||
+hcell|ccell|False||
 ncol|Long|False||
 
 
 ---
 VBA Procedure: **exists**  
 Type: **Function**  
-Returns: **[cCell](/libraries/cCell_cls.md "cCell")**  
+Returns: **ccell**  
 Return description: ****  
 Scope: **Private**  
 Description: ****  
 
-*Private Function exists(vCollect As Collection, sid As Variant) As cCell*  
+*Private Function exists(vCollect As Collection, sid As Variant) As ccell*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---
