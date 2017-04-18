@@ -1,4 +1,5 @@
 'gistThat@mcpher.com :do not modify this line - see ramblings.mcpher.com for details: updated on 8/18/2014 4:47:58 PM : from manifest:7471153 gist https://gist.github.com/brucemcpherson/7453196/raw/UAMeasure.vba
+'v2.1
 Option Explicit
 Public Sub testua()
     With registerUA("developing_testua")
@@ -31,8 +32,12 @@ Public Function getVersion() As String
     getVersion = "cDataSet.v.3.012"
 End Function
 Public Function getUserHash() As String
-    getUserHash = encryptSha1(getSalt(), _
-        Application.ThisWorkbook.FullName & Application.UserName)
+
+' more an more systems dont have this, so just abandonding
+    getUserHash = getSalt()
+    
+    'getUserHash = encryptSha1(getSalt(), _
+     '   Application.ThisWorkbook.FullName & Application.UserName)
 End Function
 Public Function getSalt() As String
     getSalt = "vNIXE0xscrmjlyV-12Nj_BvUPaw="
