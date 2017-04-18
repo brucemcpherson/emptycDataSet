@@ -1,6 +1,6 @@
 'gistThat@mcpher.com :do not modify this line - see ramblings.mcpher.com for details: updated on 8/18/2014 4:47:50 PM : from manifest:5055578 gist https://gist.github.com/brucemcpherson/3423885/raw/restLibrary.vba
 Option Explicit
-' v2.25
+' v2.26
 'for more about this
 ' http://ramblings.mcpher.com/Home/excelquirks/classeslink/data-manipulation-classes
 'to contact me
@@ -67,7 +67,14 @@ Public Function createRestLibrary() As cJobject
     cj.init Nothing, "restLibrary"
 
     With cj
-
+    
+        With .add("sunrise-sunset")
+            .add "restType", erQueryPerRow
+            .add "url", "http://api.sunrise-sunset.org/json?"
+            .add "results", "results"
+            .add "treeSearch", False
+            .add "ignore", vbNullString
+        End With
 
         With .add("lescourses")
             .add "restType", erSingleQuery
@@ -658,7 +665,7 @@ Public Function restQuery(Optional sheetName As String = vbNullString, _
 '   give it a known name, and somewhere to put the result
 '   in the case where 1 query returns multiple rows, sQuery is the query contents
 '   where 1 column contains the query for each row, sQueryColumn contains the name of the column
-    Dim qType As erRestType, sUrl As String, sResults As String, sEntryType As erRestType, sc As cCell
+    Dim qType As erRestType, sUrl As String, sResults As String, sEntryType As erRestType, sc As ccell
     Dim dset As cDataSet, cr As cRest, sIgnore As String, cj As cJobject, cEntry As cJobject, job As cJobject
     Dim libAppend As String, _
         libAccept As String, bWire As Boolean, crIndirect As cRest, _
@@ -762,15 +769,21 @@ Public Function restQuery(Optional sheetName As String = vbNullString, _
         If (IsEmpty(rPlace.Cells(1, 1))) Then rPlace.Cells(1, 1).value = "crest"
         With dset.populateData(toEmptyBox(rPlace))
             ' ensure that the query column exists if it was asked for
+            Dim sqa As Variant, si As Long, sqc As Collection
             If qType = erQueryPerRow Then
-                If Not .headingRow.validate(True, sQueryColumn) Then Exit Function
+                Set sqc = New Collection
+                sqa = Split(sQueryColumn, ",")
+                For si = LBound(sqa) To UBound(sqa)
+                    If Not .headingRow.validate(True, CStr(sqa(si))) Then Exit Function
+                    sqc.add .headingRow.exists(CStr(sqa(si))), CStr(sqa(si))
+                Next si
             End If
             If stampQuery <> vbNullString Then
                 If Not .headingRow.validate(True, stampQuery) Then Exit Function
                 Set sc = .headingRow.exists(stampQuery)
             End If
             ' alsmost there
-            Set cr = cr.init(sResults, qType, .headingRow.exists(sQueryColumn), _
+            Set cr = cr.init(sResults, qType, sqc, _
                     , dset, bPopulate, sUrl, bClearMissing, _
                     bTreeSearch, complain, sIgnore, user, pass, append, sc, _
                     libAppend & appendQuery, libAccept, bWire, collectionNeeded, _
