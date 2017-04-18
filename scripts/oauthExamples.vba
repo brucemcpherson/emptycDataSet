@@ -33,11 +33,15 @@ Private Sub testOauth2()
    ' End With
 
     'or you can do first ever like this
-    'With getGoogled("viz", , "xxxxx.apps.googleusercontent.com", "xxxxx")
-    '    Debug.Print .authHeader
-    '    .tearDown
-    'End With
+    With getGoogled("viz", , "1092408392628-lga1vk2kr2bipvbo0esru331gg9fnp8r.apps.googleusercontent.com", "2ct4Skci3lDrPtQ-Y3dRD50f")
+        Debug.Print .authHeader
+        .tearDown
+    End With
     
+    With getGoogled("drive", , , , , "viz")
+        Debug.Print .authHeader
+        .tearDown
+    End With
     ' all other times this is what is needed
     With getGoogled("drive")
         Debug.Print .authHeader
@@ -48,7 +52,7 @@ Private Sub testOauth2()
     'Debug.Print objectStringify(getGoogled("drive"))
     
     ' all other times this is what is needed
-    With getGoogled("analytics")
+    With getGoogled("analytics", , , , , "drive")
         Debug.Print .authHeader
         .tearDown
     End With
