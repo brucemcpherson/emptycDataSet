@@ -1,7 +1,7 @@
 'gistThat@mcpher.com :do not modify this line - see ramblings.mcpher.com for details: updated on 8/18/2014 4:47:52 PM : from manifest:5055578 gist https://gist.github.com/brucemcpherson/3423885/raw/cRest.cls
 ' This is a generalized class for dealing with rest queries
 Option Explicit
-' v2.13
+' v2.14
 'for more about this
 ' http://ramblings.mcpher.com/Home/excelquirks/classeslink/data-manipulation-classes
 'to contact me
@@ -24,7 +24,7 @@ End Enum
 Private pResultsFormat As erResultsFormat
 Private pCollectionNeeded As Boolean
 Private perType As erRestType
-Private pQueryhCell As cCell
+Private pQueryhCells As Object
 Private pQueryString As String
 Private pDset As cDataSet
 Private pPopulate As Boolean
@@ -40,7 +40,7 @@ Private pUser As String
 Private pAccept As String
 Private pDatajObject As cJobject
 Private pAppend As Boolean
-Private pStamp As cCell
+Private pStamp As ccell
 Private pAppendQuery As String
 Private pWire As Boolean
 Private pAlwaysEncode As Boolean
@@ -117,7 +117,7 @@ Public Property Get encodedUri() As String
     encodedUri = s
 End Property
 
-Public Property Get queryhCell() As cCell
+Public Property Get queryhCell() As ccell
     Set queryhCell = pQueryhCell
 End Property
 Public Property Let queryString(p As String)
@@ -166,7 +166,7 @@ Public Function childOrFindJob(job As cJobject, s As String) As cJobject
 End Function
 Public Function init(Optional rData As String = "responsedata.results", _
                      Optional et As erRestType = erQueryPerRow, _
-                     Optional hc As cCell = Nothing, _
+                     Optional hc As Object = Nothing, _
                      Optional rq As String = vbNullString, _
                      Optional ds As cDataSet = Nothing, _
                      Optional pop As Boolean = True, _
@@ -178,7 +178,7 @@ Public Function init(Optional rData As String = "responsedata.results", _
                      Optional user As String = vbNullString, _
                      Optional pass As String = vbNullString, _
                      Optional append As Boolean = False, _
-                     Optional stampQuery As cCell = Nothing, _
+                     Optional stampQuery As ccell = Nothing, _
                      Optional appendQuery As String = vbNullString, _
                      Optional libAccept As String = vbNullString, _
                      Optional bWire As Boolean = False, _
@@ -209,13 +209,25 @@ Public Function init(Optional rData As String = "responsedata.results", _
     Set poAuth2 = oa
     ' every jobject for every row
     Set pJobjects = New Collection
-    Set pQueryhCell = hc
-    If perType = erQueryPerRow And pQueryhCell Is Nothing Then
+    
+    'for backwards compat..
+    If (isSomething(hc)) Then
+        If (TypeName(hc) = "Collection") Then
+            Set pQueryhCells = hc
+        Else
+            Set pQueryhCells = New Collection
+            pQueryhCells.add hc
+        End If
+    End If
+    
+    ' check we have all we need for multiple queries absed ont he data
+    If perType = erQueryPerRow And pQueryhCells Is Nothing Then
         If complain Then
-            MsgBox ("You need to specify a column for rowwise queries")
+            MsgBox ("You need to specify a column (or a collection of collumns) for rowwise queries")
         End If
         Exit Function
     End If
+    
     pQueryString = rq
     pRestUrlStem = pUrl
     
@@ -307,7 +319,7 @@ End Function
 Public Function execute(Optional qry As String = vbNullString, _
                         Optional sFix As String = vbNullString, _
                         Optional complain As Boolean = True) As cRest
-    Dim cc As cCell, dr As cDataRow, job As cJobject, n As Long
+    Dim cc As ccell, dr As cDataRow, job As cJobject, n As Long
     Select Case perType
         Case erSingleQuery
         'clear current data
@@ -327,14 +339,36 @@ Public Function execute(Optional qry As String = vbNullString, _
             End If
             
         Case erQueryPerRow
-        ' do a query for each row
+
+            Dim qs As cStringChunker
+            Set qs = New cStringChunker
             With pDset
                 n = 0
                 For Each dr In .rows
-                    Set job = executeSingle(, URLEncode(dr.cell(pQueryhCell.toString).toString), , sFix)
+                    ' do a query for each row
+                    ' if the pQueryhcell is a collection then we need to concatenate the thing
+                    Dim qh As String, qc As ccell
+                    qh = ""
+                    qs.clear
+                    
+                    ' if there is only one column, then as the prev behavior
+                    ' the parameter name is expected to be in the url
+                    ' if theres more than one, than parameters are taken
+                    ' from the column names
+                    For Each qc In pQueryhCells
+                        If (pQueryhCells.count > 1) Then
+                            qs.add(qc.toString).add ("=")
+                        End If
+                        qs.uri(dr.cell(qc.toString).toString).add "&"
+                    Next qc
+                    qh = qs.chopIf("&").toString
+                    
+                    ' good to execute for this one row
+                    Set job = executeSingle(, qh, , sFix)
                     If Not job Is Nothing Then
                         If (Not populateOneRow(job, dr) Is Nothing) Then n = n + 1
                     End If
+                    
                 Next dr
                 ' write it all back to the sheet
                 If (n > 0) Then
@@ -355,8 +389,19 @@ Public Function execute(Optional qry As String = vbNullString, _
     Set execute = Me
 
 End Function
+Private Function columnIsAQueryCell(column As Long) As Boolean
+    Dim c As ccell
+
+    For Each c In pQueryhCells
+        If (column = c.column) Then
+            columnIsAQueryCell = True
+            Exit Function
+        End If
+    Next c
+    columnIsAQueryCell = False
+End Function
 Private Function populateOneRow(job As cJobject, dr As cDataRow) As cDataRow
-    Dim jo As cJobject, dc As cCell, jof As cJobject
+    Dim jo As cJobject, dc As ccell, jof As cJobject
     'populate cells with response - this populate cells in this row
 
     If Not pPopulate Then Exit Function
@@ -365,8 +410,8 @@ Private Function populateOneRow(job As cJobject, dr As cDataRow) As cDataRow
     Set jo = respRootJob(job)
     Set pDatajObject = jo
     For Each dc In pDset.headings
-        ' leave the query column intact
-        If (dc.column <> pQueryhCell.column) Then
+        ' leave the query column(s) intact
+        If (Not columnIsAQueryCell(dc.column)) Then
             ' update with new value
             Set jof = childOrFindJob(jo, dc.toString)
             If Not jof Is Nothing Then
@@ -382,7 +427,7 @@ Private Function populateOneRow(job As cJobject, dr As cDataRow) As cDataRow
 
 End Function
 Private Function populateRows(job As cJobject, Optional complain As Boolean = True) As cRest
-    Dim jo As cJobject, dc As cCell, iAppend As Long, dotless As String
+    Dim jo As cJobject, dc As ccell, iAppend As Long, dotless As String
     'populate cells with response - this populate cells in this row
     Set pDatajObject = respRootJob(job)
     If Not pPopulate Then Exit Function
