@@ -1,5 +1,5 @@
 # VBA Project: emptycDataSet
-This cross reference list for repo (emptycDataSet) was automatically created on 5/11/2015 1:03:16 PM by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
+This cross reference list for repo (emptycDataSet) was automatically created on 4/18/2017 10:33:04 AM by VBAGit.For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 You can see [library and dependency information here](dependencies.md)
 
 ###Below is a cross reference showing which modules and procedures reference which others
@@ -29,8 +29,6 @@ regXLib|rxReplace|usefulcJobject|hackJSONPObjectToJSON
 UAMeasure|registerUA|restLibrary|restQuery
 usefulcJobject|cleanGoogleWire|googleSheets|getJobjectFromWire
 usefulcJobject|JSONParse|googleSheets|getSchemaNewSheets
-usefulEncrypt|decryptMessage|cOauth2|decrypt
-usefulEncrypt|encryptMessage|cOauth2|encrypt
 usefulSheetStuff|sheetExists|googleSheets|getDataNewSheets
 usefulSheetStuff|sheetExists|googleSheets|deleteSomeOfTheSheets
 usefulStuff|isSomething|googleSheets|getSheetsInSchemaNewSheets
