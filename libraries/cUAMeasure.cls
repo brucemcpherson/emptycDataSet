@@ -1,6 +1,6 @@
 'gistThat@mcpher.com :do not modify this line - see ramblings.mcpher.com for details: updated on 8/18/2014 4:47:58 PM : from manifest:7471153 gist https://gist.github.com/brucemcpherson/7453152/raw/cUAMeasure.cls
 Option Explicit
-'v2.2
+'v2.3
 Private pUACode As String
 Private pBrowser As cBrowser
 Private pID As String
