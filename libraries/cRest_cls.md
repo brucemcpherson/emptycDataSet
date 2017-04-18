@@ -2,7 +2,7 @@
 ## VBA Module: **[cRest](/libraries/cRest.cls "source is here")**
 ### Type: ClassModule  
 
-This procedure list for repo (emptycDataSet) was automatically created on 5/11/2015 1:03:15 PM by VBAGit.
+This procedure list for repo (emptycDataSet) was automatically created on 4/18/2017 10:33:02 AM by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in cRest
@@ -103,12 +103,12 @@ Description: ****
 ---
 VBA Procedure: **queryhCell**  
 Type: **Get**  
-Returns: **[cCell](/libraries/cCell_cls.md "cCell")**  
+Returns: **ccell**  
 Return description: ****  
 Scope: **Public**  
 Description: ****  
 
-*Public Property Get queryhCell() As cCell*  
+*Public Property Get queryhCell() As ccell*  
 
 **no arguments required for this procedure**
 
@@ -253,13 +253,13 @@ Return description: ****
 Scope: **Public**  
 Description: ****  
 
-*Public Function init(Optional rData As String = "responsedata.results", Optional et As erRestType = erQueryPerRow, Optional hc As cCell = Nothing, Optional rq As String = vbNullString, Optional ds As cDataSet = Nothing, Optional pop As Boolean = True, Optional pUrl As String = vbNullString, Optional clearmissing As Boolean = True, Optional treesearch As Boolean = False, Optional complain As Boolean = True, Optional sIgnore As String = vbNullString, Optional user As String = vbNullString, Optional pass As String = vbNullString, Optional append As Boolean = False, Optional stampQuery As cCell = Nothing, Optional appendQuery As String = vbNullString, Optional libAccept As String = vbNullString, Optional bWire As Boolean = False, Optional collectionNeeded As Boolean = True, Optional bAlwaysEncode As Boolean = False, Optional timeout As Long = 0, Optional postData As String = vbNullString, Optional resultsFormat As erResultsFormat = erJSON, Optional oa As cOauth2 = Nothing) As cRest*  
+*Public Function init(Optional rData As String = "responsedata.results", Optional et As erRestType = erQueryPerRow, Optional hc As Object = Nothing, Optional rq As String = vbNullString, Optional ds As cDataSet = Nothing, Optional pop As Boolean = True, Optional pUrl As String = vbNullString, Optional clearmissing As Boolean = True, Optional treesearch As Boolean = False, Optional complain As Boolean = True, Optional sIgnore As String = vbNullString, Optional user As String = vbNullString, Optional pass As String = vbNullString, Optional append As Boolean = False, Optional stampQuery As ccell = Nothing, Optional appendQuery As String = vbNullString, Optional libAccept As String = vbNullString, Optional bWire As Boolean = False, Optional collectionNeeded As Boolean = True, Optional bAlwaysEncode As Boolean = False, Optional timeout As Long = 0, Optional postData As String = vbNullString, Optional resultsFormat As erResultsFormat = erJSON, Optional oa As cOauth2 = Nothing) As cRest*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---
 rData|String|True| "responsedata.results"|
 et|erRestType|True| erQueryPerRow|
-hc|[cCell](/libraries/cCell_cls.md "cCell")|True| Nothing|
+hc|Object|True| Nothing|
 rq|String|True| vbNullString|
 ds|[cDataSet](/libraries/cDataSet_cls.md "cDataSet")|True| Nothing|
 pop|Boolean|True| True|
@@ -271,7 +271,7 @@ sIgnore|String|True| vbNullString|
 user|String|True| vbNullString|
 pass|String|True| vbNullString|
 append|Boolean|True| False|
-stampQuery|[cCell](/libraries/cCell_cls.md "cCell")|True| Nothing|
+stampQuery|ccell|True| Nothing|
 appendQuery|String|True| vbNullString|
 libAccept|String|True| vbNullString|
 bWire|Boolean|True| False|
@@ -316,6 +316,21 @@ Description: ****
 qry|String|True| vbNullString|
 sFix|String|True| vbNullString|
 complain|Boolean|True| True|
+
+
+---
+VBA Procedure: **columnIsAQueryCell**  
+Type: **Function**  
+Returns: **Boolean**  
+Return description: ****  
+Scope: **Private**  
+Description: ****  
+
+*Private Function columnIsAQueryCell(column As Long) As Boolean*  
+
+*name*|*type*|*optional*|*default*|*description*
+---|---|---|---|---
+column|Long|False||
 
 
 ---
