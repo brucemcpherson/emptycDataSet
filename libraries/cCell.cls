@@ -91,7 +91,7 @@ Public Property Let value(p As Variant)
         pValue = p
     End If
 End Property
-Public Function needSwap(cc As cCell, e As eSort) As Boolean
+Public Function needSwap(cc As ccell, e As eSort) As Boolean
     ' this can be used from a sorting alogirthm
     Select Case e
         Case eSortAscending
@@ -115,7 +115,7 @@ Public Function Commit(Optional p As Variant) As Variant
 
 End Function
 Public Function create(par As cDataRow, colNum As Long, rCell As Range, _
-            Optional v As Variant) As cCell        ' Fill the Cell up
+            Optional v As Variant) As ccell        ' Fill the Cell up
     
     ' if v is specifed we knw the value without needing to access the sheet
     If IsMissing(v) Then
