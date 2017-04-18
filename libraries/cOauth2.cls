@@ -266,12 +266,14 @@ Public Property Let salt(p As String)
     pSalt = p
 End Property
 Private Function encrypt(s As String) As String
-'    " uses capicom
-    encrypt = encryptMessage(s, pSalt)
+'    capicom is no longer supported -- encryption no longer supported
+'    encrypt = encryptMessage(s, pSalt)
+    encrypt = s
 End Function
 Private Function decrypt(s As String) As String
-'    " uses capicom
-    decrypt = decryptMessage(s, pSalt)
+'    capicom is no longer supported -- encryption no longer supported
+'    decrypt = decryptMessage(s, pSalt)
+    decrypt = s
 End Function
 '" ---- registry -----
 '" in registry entries, the values are encrypted useing the salt
