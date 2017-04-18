@@ -1,6 +1,6 @@
 'gistThat@mcpher.com :do not modify this line - see ramblings.mcpher.com for details: updated on 8/18/2014 4:47:42 PM : from manifest:3414394 gist https://gist.github.com/brucemcpherson/3414216/raw/cDataColumn.cls
 ' a collection of data Cells representing one column of data
-' v2.04 -
+' v2.05 -
 Option Explicit
 'for more about this
 ' http://ramblings.mcpher.com/Home/excelquirks/classeslink/data-manipulation-classes
@@ -13,7 +13,7 @@ Private pWhere As Range
 Private pParent As cDataSet
 Private pColumn As Long
 Private pTypeofColumn As eTypeofColumn
-Private pHeadingCell As cCell    ' we can use this to find the heading for this column
+Private pHeadingCell As ccell    ' we can use this to find the heading for this column
 Private pDirty As Boolean
 
 
@@ -54,14 +54,14 @@ Public Property Get where() As Range
         Set where = pWhere.Resize(pParent.rows.count)
     End If
 End Property
-Public Property Get cell(rowID As Variant) As cCell
+Public Property Get cell(rowID As Variant) As ccell
     Set cell = pParent.cell(rowID, pHeadingCell.column)
 End Property
 Public Property Get value(rowID As Variant) As Variant
     value = cell(rowID).value
 End Property
 Public Function refresh(Optional rowID As Variant) As Variant
-    Dim dt As cCell
+    Dim dt As ccell
     If IsMissing(rowID) Then
         For Each dt In rows
             refresh = dt.refresh
@@ -74,7 +74,7 @@ Public Function refresh(Optional rowID As Variant) As Variant
 End Function
 Public Function filtered(v As Variant) As Collection
     ' this creates a filtered collection of cells for this column based on matching some value
-    Dim c As Collection, cc As cCell
+    Dim c As Collection, cc As ccell
     Set c = New Collection
     For Each cc In rows
         ' this filter is in addition to any excel ones in operations
@@ -86,7 +86,7 @@ End Function
 
 Public Property Get uniqueValues(Optional es As eSort = eSortNone) As Collection
     ' return a collection of unique values for this column
-    Dim cc As cCell
+    Dim cc As ccell
     Dim vUnique As Collection
     Set vUnique = New Collection
     
@@ -100,7 +100,7 @@ Public Property Get uniqueValues(Optional es As eSort = eSortNone) As Collection
     Set uniqueValues = vUnique
 End Property
 Public Sub Commit(Optional p As Variant, Optional rowID As Variant)
-    Dim dt As cCell, v As Variant
+    Dim dt As ccell, v As Variant
     
     If IsMissing(rowID) Then
         For Each dt In pCollect
@@ -112,15 +112,15 @@ Public Sub Commit(Optional p As Variant, Optional rowID As Variant)
    
 End Sub
 Public Property Get values() As Variant
-    Dim cc As cCell
+    Dim cc As ccell
     ReDim a(1 To parent.visibleRowsCount) As Variant
     For Each cc In rows
         If Not cc.parent.hidden Then a(cc.row) = cc.value
     Next cc
     values = a
 End Property
-Public Function find(v As Variant) As cCell
-    Dim cc As cCell
+Public Function find(v As Variant) As ccell
+    Dim cc As ccell
     For Each cc In rows
         If makeKey(cc.value) = makeKey(v) Then
             Set find = cc
@@ -137,8 +137,8 @@ End Function
 Public Property Get toString(rowNum As Long, Optional sFormat As String = vbNullString) As String
     toString = cell(rowNum).toString(sFormat)
 End Property
-Public Function create(dset As cDataSet, hcell As cCell, ncol As Long) As cDataColumn
-    Dim rCell As Range, dcell As cCell
+Public Function create(dset As cDataSet, hcell As ccell, ncol As Long) As cDataColumn
+    Dim rCell As Range, dcell As ccell
     pTypeofColumn = eTCunknown
     Set pParent = dset
 
@@ -149,7 +149,7 @@ Public Function create(dset As cDataSet, hcell As cCell, ncol As Long) As cDataC
     Set pHeadingCell = hcell
     Set create = Me
 End Function
-Private Function exists(vCollect As Collection, sid As Variant) As cCell
+Private Function exists(vCollect As Collection, sid As Variant) As ccell
     If Not vCollect Is Nothing Then
         On Error GoTo handle
         Set exists = vCollect(sid)
