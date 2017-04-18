@@ -2,7 +2,7 @@
 ## VBA Module: **[cDataSet](/libraries/cDataSet.cls "source is here")**
 ### Type: ClassModule  
 
-This procedure list for repo (emptycDataSet) was automatically created on 5/11/2015 1:03:14 PM by VBAGit.
+This procedure list for repo (emptycDataSet) was automatically created on 4/18/2017 10:33:01 AM by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in cDataSet
@@ -224,12 +224,12 @@ p|[cHeadingRow](/libraries/cHeadingRow_cls.md "cHeadingRow")|False||
 ---
 VBA Procedure: **cell**  
 Type: **Get**  
-Returns: **[cCell](/libraries/cCell_cls.md "cCell")**  
+Returns: **ccell**  
 Return description: ****  
 Scope: **Public**  
 Description: ****  
 
-*Public Property Get cell(rowID As Variant, sid As Variant) As cCell*  
+*Public Property Get cell(rowID As Variant, sid As Variant) As ccell*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---
@@ -527,12 +527,12 @@ bIncludeKey|Variant|True||
 ---
 VBA Procedure: **find**  
 Type: **Function**  
-Returns: **[cCell](/libraries/cCell_cls.md "cCell")**  
+Returns: **ccell**  
 Return description: ****  
 Scope: **Public**  
 Description: ****  
 
-*Public Function find(v As Variant, Optional bIncludeKey = False) As cCell*  
+*Public Function find(v As Variant, Optional bIncludeKey = False) As ccell*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---
