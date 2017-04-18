@@ -1,7 +1,7 @@
 'gistThat@mcpher.com :do not modify this line - see ramblings.mcpher.com for details: updated on 8/18/2014 4:47:45 PM : from manifest:3414394 gist https://gist.github.com/brucemcpherson/3414365/raw
 ' this is used for object serliazation. Its just basic JSON with only string data types catered for
 Option Explicit
-' v2.24 3414365
+' v2.25 3414365
 'for more about this
 ' http://ramblings.mcpher.com/Home/excelquirks/classeslink/data-manipulation-classes
 'to contact me
@@ -534,21 +534,48 @@ Public Function recurseSerialize(job As cJobject, Optional soFar As cStringChunk
   
   If Not (job.hasChildren Or job.isArrayRoot) Then
     If blf And Not job.hasKey Then s = s & Space(indent)
+    
+    Dim vt As VbVarType
+    vt = VarType(job.value)
+    
+    ' an embedded object
     If (job.isObjValue()) Then
         t.add quote(job.toString)
-    ElseIf (VarType(job.value) <> vbLong And _
-        VarType(job.value) <> vbBoolean And _
-        VarType(job.value) <> vbInteger And _
-        VarType(job.value) <> vbDouble And _
-        VarType(job.value) <> vbSingle And _
-        VarType(job.value) <> vbCurrency And Not job.isVoid()) Then
-            t.add quote(CStr(escapeify(job.value)))
-    Else
-        If Not job.isVoid() Then
-            t.add LCase(job.toString)
+        
+    ' translate to null
+    ElseIf job.isVoid() Then
+        t.add "null"
+    
+    ' take care to avoid localized version of true/false
+    ElseIf vt = vbBoolean Then
+
+        If (job.value) Then
+            t.add ("true")
         Else
-            t.add "null"
+            t.add ("true")
         End If
+    
+    ' take care to avoid localized version of decimal points
+    ElseIf (vt = vbDouble Or _
+        vt = vbSingle Or _
+        vt = vbCurrency) Then
+        
+        t.add Replace(LCase(job.toString), ",", ".")
+    
+    ' numbers shouldnt be quoted
+    ElseIf (vt = vbLong Or _
+            vt = vbInteger Or _
+            vt = vbByte) Then
+            
+        t.add (job.toString)
+   
+    ' turn dates to ISO
+    ElseIf (vt = vbDate) Then
+        t.add (toISODateTime(job.value))
+        
+    ' quote and escapeify everything else
+    Else
+        t.add quote(CStr(escapeify(job.value)))
     End If
         
   Else
