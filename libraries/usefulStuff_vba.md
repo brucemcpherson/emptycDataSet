@@ -2,7 +2,7 @@
 ## VBA Module: **[usefulStuff](/libraries/usefulStuff.vba "source is here")**
 ### Type: StdModule  
 
-This procedure list for repo (emptycDataSet) was automatically created on 5/11/2015 1:03:14 PM by VBAGit.
+This procedure list for repo (emptycDataSet) was automatically created on 4/18/2017 10:33:00 AM by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in usefulStuff
