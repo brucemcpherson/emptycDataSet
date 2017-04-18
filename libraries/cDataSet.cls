@@ -101,13 +101,13 @@ End Property
 Public Property Set headingRow(p As cHeadingRow)
     Set pHeadingRow = p
 End Property
-Public Property Get cell(rowID As Variant, sid As Variant) As cCell
+Public Property Get cell(rowID As Variant, sid As Variant) As ccell
     Dim dr As cDataRow
     Set dr = row(rowID)
     If Not dr Is Nothing Then Set cell = dr.cell(sid)
 End Property
 Public Property Get isCellTrue(rowID As Variant, sid As Variant) As Boolean
-    Dim cc As cCell, s As String
+    Dim cc As ccell, s As String
     Set cc = cell(rowID, sid)
     isCellTrue = False
     If (Not cc Is Nothing) Then
@@ -158,7 +158,7 @@ Public Property Get jObject(Optional jSonConv As eJsonConv = eJsonConvPropertyNa
                 Optional dataSetName As String = vbNullString) As cJobject
 
     ' convert dataset to a JSON string
-    Dim dr As cDataRow, dh As cCell, dc As cCell, cr As cJobject, ca As cJobject, d As Date, jName As String
+    Dim dr As cDataRow, dh As ccell, dc As ccell, cr As cJobject, ca As cJobject, d As Date, jName As String
     
     ' create serialization object
     Dim cj As cJobject
@@ -249,7 +249,7 @@ Private Function create(rp As Range, _
                 Optional keepFresh As Boolean = False, Optional stopAtFirstEmptyRow = True, _
                 Optional sKey As String = vbNullString, Optional maxDataRows As Long = 0) As cDataSet
                 
-    Dim dRow As cDataRow, dcol As cDataColumn, hcell As cCell, exitwhile As Boolean
+    Dim dRow As cDataRow, dcol As cDataColumn, hcell As ccell, exitwhile As Boolean
     Dim topRow As Long, nRow As Long, ncol As Long, m As Long, av As Variant
     Dim rv As Variant, i As Long
 
@@ -408,6 +408,9 @@ Public Function populateGoogleWire(sWire As String, rstart As Range, _
     ' and i also need to convert date from javascript syntax new Date()
     s = rxReplace("(new\sDate)(\()(\d+)(,)(\d+)(,)(\d+)(\))", s, "'$3/$5/$7'")
     If Not newWire Then s = rxReplace("(\w+)(:)", s, "'$1':")
+    ' finally there's also a problem of receiving ,null, instead of {'v':null}
+    s = rxReplace("([,\[])null", s, "$1{'v':null}")
+    
     ' this should return an object as follow
     ' {table:[ cols:[c:[{id:x,label:x,pattern:x,type:x}] , rows:[ c:[(v:x,f:x}] ]}
     Set jo = New cJobject
@@ -547,8 +550,8 @@ Public Property Get values(Optional bIncludeKey = False) As Variant
     Next dr
     values = a
 End Property
-Public Function find(v As Variant, Optional bIncludeKey = False) As cCell
-    Dim dr As cDataRow, cc As cCell
+Public Function find(v As Variant, Optional bIncludeKey = False) As ccell
+    Dim dr As cDataRow, cc As ccell
     For Each dr In rows
         Set cc = dr.find(v, bIncludeKey)
         If Not cc Is Nothing Then
@@ -579,7 +582,7 @@ Public Function bigCommit(Optional rout As Range = Nothing, Optional clearWs As 
                     Optional outputHeadings As Boolean = True, Optional filterUpperValue) As Long
                     
     ' this one does a quick bulk commit
-    Dim rTarget As Range, headOrder As Collection, hcell As cCell, nHeads As Long, s As String, j As Long
+    Dim rTarget As Range, headOrder As Collection, hcell As ccell, nHeads As Long, s As String, j As Long
     Dim dArray As Variant, dr As cDataRow, n As Long, i As Long, filterCol As Long, fArray As Variant
     ' get start of where we are putting this to
     If rout Is Nothing Then
