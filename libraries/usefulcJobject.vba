@@ -2,6 +2,7 @@
 'v2.16 11.5.15
 Option Explicit
 
+
 Public Function fromISODateTime(iso As String) As Date
     Dim rx As RegExp, matches As MatchCollection, d As Date, ms As Double, sec As Double
     Set rx = New RegExp
@@ -197,6 +198,8 @@ Public Function cleanGoogleWire(sWire As String) As String
         Set t = Nothing
     End If
     If Not newWire Then s = rxReplace("(\w+)(:)", s, "'$1':")
+    ' finally there's also a problem of receiving ,null, instead of {'v':null}
+    s = rxReplace("([,\[])null", s, "$1{'v':null}")
     cleanGoogleWire = s
     
 End Function
