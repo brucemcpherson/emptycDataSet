@@ -22,14 +22,14 @@ Public Property Get where() As Range
     Set where = pDataRow.where
 End Property
 Public Function create(dset As cDataSet, rHeading As Range, Optional keepFresh As Boolean = False) As cHeadingRow
-    Dim rCell As Range, hcell As cCell, n As Long, dr As cDataRow
+    Dim rCell As Range, hcell As ccell, n As Long, dr As cDataRow
 
     With pDataRow
         .create dset, rHeading, 0, keepFresh
     End With
     Set create = Me
 End Function
-Public Function exists(s As String) As cCell
+Public Function exists(s As String) As ccell
     If headings.count > 0 Then
         On Error GoTo handle
         Set exists = headings(makeKey(s))
@@ -40,7 +40,7 @@ handle:
 End Function
 Public Property Get headingList() As String
     ' return a comma separated list of the headings
-    Dim t As cStringChunker, cc As cCell
+    Dim t As cStringChunker, cc As ccell
     Set t = New cStringChunker
     For Each cc In headings
         t.add cc.toString & ","
