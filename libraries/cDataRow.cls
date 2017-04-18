@@ -29,8 +29,8 @@ Public Property Get where() As Range
     Set where = pWhere
 End Property
 
-Public Property Get cell(sid As Variant, Optional complain As Boolean = False) As cCell
-    Dim c As cCell
+Public Property Get cell(sid As Variant, Optional complain As Boolean = False) As ccell
+    Dim c As ccell
     Set c = exists(sid)
     If c Is Nothing And complain Then
         MsgBox (CStr(sid) & " is not a known column heading")
@@ -39,14 +39,14 @@ Public Property Get cell(sid As Variant, Optional complain As Boolean = False) A
 
 End Property
 Public Property Get value(sid As Variant) As Variant
-    Dim cc As cCell
+    Dim cc As ccell
     Set cc = cell(sid)
     If Not cc Is Nothing Then
         value = cc.value
     End If
 End Property
 Public Property Get values(Optional bIncludeKey = False) As Variant
-    Dim cc As cCell
+    Dim cc As ccell
     ReDim a(1 To columns.count) As Variant
     For Each cc In columns
         If cc.column <> pParent.keyColumn Or bIncludeKey Then
@@ -58,8 +58,8 @@ Public Property Get values(Optional bIncludeKey = False) As Variant
     values = a
 End Property
 
-Public Function find(v As Variant, Optional bIncludeKey = False) As cCell
-    Dim cc As cCell
+Public Function find(v As Variant, Optional bIncludeKey = False) As ccell
+    Dim cc As ccell
     For Each cc In columns
         If cc.column <> pParent.keyColumn Or bIncludeKey Then
             If makeKey(cc.value) = makeKey(v) Then
@@ -76,7 +76,7 @@ Public Function min(Optional bIncludeKey = False) As Variant
     max = Application.WorksheetFunction.min(values(bIncludeKey))
 End Function
 Public Function refresh(Optional sid As Variant) As Variant
-    Dim dt As cCell, v As Variant
+    Dim dt As ccell, v As Variant
     If IsMissing(sid) Then
         For Each dt In columns
             v = dt.refresh
@@ -88,7 +88,7 @@ Public Function refresh(Optional sid As Variant) As Variant
 End Function
 
 Public Sub Commit(Optional p As Variant, Optional sid As Variant)
-    Dim dt As cCell
+    Dim dt As ccell
     If IsMissing(sid) Then
         For Each dt In columns
             dt.Commit p
@@ -104,7 +104,7 @@ End Property
 Public Function create(dset As cDataSet, rDataRow As Range, nRow As Long, _
                             rv As Variant) As cDataRow
                             
-    Dim rCell As Range, dcell As cCell, hcell As cCell, hr As cHeadingRow, n As Long
+    Dim rCell As Range, dcell As ccell, hcell As ccell, hr As cHeadingRow, n As Long
     Dim r As Range, dc As cDataColumn
 
     Set pWhere = rDataRow
@@ -125,7 +125,7 @@ Public Function create(dset As cDataSet, rDataRow As Range, nRow As Long, _
                 Exit Function
             End If
             Debug.Assert Not IsEmpty(r)
-            Set dcell = New cCell
+            Set dcell = New ccell
             With dcell
                 pCollect.add .create(Me, n, r), makeKey(CStr(r.value))
             End With
@@ -135,7 +135,7 @@ Public Function create(dset As cDataSet, rDataRow As Range, nRow As Long, _
         For Each hcell In hr.headings
             ' create a cell to hold it in
             Set rCell = rDataRow.Cells(1, hcell.column)
-            Set dcell = New cCell
+            Set dcell = New ccell
             dcell.create Me, hcell.column, rCell, rv(nRow - 1 + LBound(rv, 1), hcell.column - 1 + LBound(rv, 2))
             pCollect.add dcell
 
@@ -180,7 +180,7 @@ Public Function create(dset As cDataSet, rDataRow As Range, nRow As Long, _
     Set create = Me
 End Function
 
-Private Function exists(sid As Variant) As cCell
+Private Function exists(sid As Variant) As ccell
     On Error GoTo handle
     If VarType(sid) = vbLong Or VarType(sid) = vbInteger Then
         Set exists = pCollect(sid)
@@ -193,7 +193,7 @@ handle:
 End Function
 Public Sub tearDown()
     ' clean up
-    Dim cc As cCell
+    Dim cc As ccell
     If Not pCollect Is Nothing Then
         For Each cc In columns
             cc.tearDown
