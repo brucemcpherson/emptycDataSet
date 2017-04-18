@@ -2,7 +2,7 @@
 ## VBA Module: **[cHeadingRow](/libraries/cHeadingRow.cls "source is here")**
 ### Type: ClassModule  
 
-This procedure list for repo (emptycDataSet) was automatically created on 5/11/2015 1:03:16 PM by VBAGit.
+This procedure list for repo (emptycDataSet) was automatically created on 4/18/2017 10:33:03 AM by VBAGit.
 For more information see the [desktop liberation site](http://ramblings.mcpher.com/Home/excelquirks/drivesdk/gettinggithubready "desktop liberation")
 
 Below is a section for each procedure in cHeadingRow
@@ -79,12 +79,12 @@ keepFresh|Boolean|True| False|
 ---
 VBA Procedure: **exists**  
 Type: **Function**  
-Returns: **[cCell](/libraries/cCell_cls.md "cCell")**  
+Returns: **ccell**  
 Return description: ****  
 Scope: **Public**  
 Description: ****  
 
-*Public Function exists(s As String) As cCell*  
+*Public Function exists(s As String) As ccell*  
 
 *name*|*type*|*optional*|*default*|*description*
 ---|---|---|---|---
